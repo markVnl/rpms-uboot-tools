@@ -2,7 +2,7 @@
 
 Name:      uboot-tools
 Version:   2019.07
-Release:   1%{?candidate:.%{candidate}}%{?dist}
+Release:   2%{?candidate:.%{candidate}}%{?dist}
 Summary:   U-Boot utilities
 License:   GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
 URL:       http://www.denx.de/wiki/U-Boot
@@ -14,11 +14,18 @@ Source3:   aarch64-boards
 Source4:   aarch64-chromebooks
 Source5:   10-devicetree.install
 
-# Fedoraisms patches
+# Fedora/CentOS-isms patches
 # Needed to find DT on boot partition that's not the first partition
 Patch1:    uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
+
 # Needed due to issues with shim
-Patch2:    uefi-use-Fedora-specific-path-name.patch
+%if 0%{?rhel}
+# CentOSisms
+Patch2:    uefi-use-Centos-specific-path-name.patch
+%else
+# Fedoraisms
+Patch3:    uefi-use-Fedora-specific-path-name.patch
+%endif
 
 # Board fixes and enablement
 Patch5:    usb-kbd-fixes.patch
@@ -263,6 +270,9 @@ cp -p board/warp7/README builds/docs/README.warp7
 %endif
 
 %changelog
+* Thu Aug 29 2019 Mark Verlinde <mark.verlinde@gmail.com> 2019.07-2
+- Add conditional CentOS specific EFI location
+
 * Mon Jul  8 2019 Peter Robinson <pbrobinson@fedoraproject.org> 2019.07-1
 - 2019.07
 - Enable Rock64
