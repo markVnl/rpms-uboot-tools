@@ -19,12 +19,15 @@ Source5:   10-devicetree.install
 Patch1:    uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 
 # Needed due to issues with shim
-%if 0%{?rhel}
+%if 0%{?rhel} == 7
 # CentOSisms
 Patch2:    uefi-use-Centos-specific-path-name.patch
+%elif 0%{?rhel} == 8
+# Rhel8-beta
+Patch2:   uefi-use-Rhel8-beta-specific-path-name.patch
 %else
 # Fedoraisms
-Patch3:    uefi-use-Fedora-specific-path-name.patch
+Patch2:    uefi-use-Fedora-specific-path-name.patch
 %endif
 
 # Board fixes and enablement

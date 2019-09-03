@@ -1,0 +1,50 @@
+From 37374d6c2d746d934f0291d6ffd85158b887ae3f Mon Sep 17 00:00:00 2001
+From: Mark Verlinde <mark@havak.nl>
+Date: Tue, 3 Sep 2019 13:35:25 +0200
+Subject: [PATCH 1/1] uefi use Rhel8-beta specific path name
+
+Signed-off-by: Mark Verlinde <mark@havak.nl>
+---
+ include/config_distro_bootcmd.h | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/include/config_distro_bootcmd.h b/include/config_distro_bootcmd.h
+index 26e61ef196..37a6ccc67b 100644
+--- a/include/config_distro_bootcmd.h
++++ b/include/config_distro_bootcmd.h
+@@ -92,9 +92,9 @@
+ 
+ #ifdef CONFIG_EFI_LOADER
+ #if defined(CONFIG_ARM64)
+-#define BOOTEFI_NAME "bootaa64.efi"
++#define BOOTEFI_NAME "grubaa64.efi"
+ #elif defined(CONFIG_ARM)
+-#define BOOTEFI_NAME "bootarm.efi"
++#define BOOTEFI_NAME "grubarm.efi"
+ #elif defined(CONFIG_X86_RUN_32BIT)
+ #define BOOTEFI_NAME "bootia32.efi"
+ #elif defined(CONFIG_X86_RUN_64BIT)
+@@ -130,7 +130,7 @@
+ 			"bootefi bootmgr ${fdtcontroladdr};"              \
+ 		"fi;"                                                     \
+ 		"load ${devtype} ${devnum}:${distro_bootpart} "           \
+-			"${kernel_addr_r} efi/boot/"BOOTEFI_NAME"; "      \
++			"${kernel_addr_r} efi/redhat/"BOOTEFI_NAME"; "      \
+ 		"if fdt addr ${fdt_addr_r}; then "                        \
+ 			"bootefi ${kernel_addr_r} ${fdt_addr_r};"         \
+ 		"else "                                                   \
+@@ -153,9 +153,9 @@
+ 			"fi;"                                             \
+ 		"done;"                                                   \
+ 		"if test -e ${devtype} ${devnum}:${distro_bootpart} "     \
+-					"efi/boot/"BOOTEFI_NAME"; then "  \
++					"efi/redhat/"BOOTEFI_NAME"; then "  \
+ 				"echo Found EFI removable media binary "  \
+-					"efi/boot/"BOOTEFI_NAME"; "       \
++					"efi/redhat/"BOOTEFI_NAME"; "       \
+ 				"run boot_efi_binary; "                   \
+ 				"echo EFI LOAD FAILED: continuing...; "   \
+ 		"fi; "                                                    \
+-- 
+2.16.5
+
