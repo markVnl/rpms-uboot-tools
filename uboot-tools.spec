@@ -14,11 +14,20 @@ Source3:   aarch64-boards
 Source4:   aarch64-chromebooks
 Source5:   10-devicetree.install
 
-# Fedoraisms patches
+# Fedora/CentOS-isms patches
 # Needed to find DT on boot partition that's not the first partition
 Patch1:    uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
+
 # Needed due to issues with shim
-Patch2:    uefi-use-Fedora-specific-path-name.patch
+%if 0%{?centos}
+# CentOSisms
+Patch2:    uefi-use-Centos-specific-path-name.patch
+Source200: uefi-use-Fedora-specific-path-name.patch
+%else
+# Fedoraisms
+Patch3:    uefi-use-Fedora-specific-path-name.patch
+Source300: uefi-use-Centos-specific-path-name.patch
+%endif
 
 # Board fixes and enablement
 Patch4:    usb-kbd-fixes.patch
