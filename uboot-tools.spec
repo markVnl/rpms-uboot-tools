@@ -14,7 +14,7 @@ Source2:  arm-chromebooks
 Source3:  aarch64-boards
 Source4:  aarch64-chromebooks
 
-# Fedoraisms patches
+# Fedora/CentOS-isms patches
 # Needed to find DT on boot partition that's not the first partition
 Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 # RPi - uses RPI firmware device tree for HAT support
