@@ -9,9 +9,9 @@ URL:       http://www.denx.de/wiki/U-Boot
 
 Source0:   ftp://ftp.denx.de/pub/u-boot/u-boot-%{version}%{?candidate:-%{candidate}}.tar.bz2
 Source1:   arm-boards
-Source2:   arm-chromebooks
+#Source2:   arm-chromebooks
 Source3:   aarch64-boards
-Source4:   aarch64-chromebooks
+#Source4:   aarch64-chromebooks
 Source5:   10-devicetree.install
 
 # Fedora/CentOS-isms patches
@@ -72,9 +72,9 @@ BuildRequires:  flex bison
 BuildRequires:  openssl-devel
 BuildRequires:  SDL-devel
 BuildRequires:  swig
-%ifarch %{arm} aarch64
-BuildRequires:  vboot-utils
-%endif
+#%ifarch %{arm} aarch64
+#BuildRequires:  vboot-utils
+#%endif
 %ifarch aarch64
 BuildRequires:  arm-trusted-firmware-armv8
 %endif
@@ -113,7 +113,7 @@ u-boot bootloader binaries for armv7 boards
 %prep
 %autosetup -p1 -n u-boot-%{version}%{?candidate:-%{candidate}}
 
-cp %SOURCE1 %SOURCE2 %SOURCE3 %SOURCE4 .
+cp %SOURCE1 %SOURCE3 .
 
 %build
 mkdir builds
