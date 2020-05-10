@@ -60,8 +60,10 @@ BuildRequires:  devtoolset-7-build
 BuildRequires:  devtoolset-7-binutils
 BuildRequires:  devtoolset-7-gcc
 BuildRequires:  python2-devel
-BuildRequires:  python3-setuptools
+BuildRequires:  python2-setuptools
 BuildRequires:  python2-libfdt
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-devel
 %else
 BuildRequires:  gcc
 BuildRequires:  python3-devel
