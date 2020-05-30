@@ -14,7 +14,7 @@ Source3:   aarch64-boards
 Source4:   aarch64-chromebooks
 Source5:   10-devicetree.install
 
-# Fedora/CentOS-isms patches
+# Fedora/CentOS/Mageiaisms patches
 # Needed to find DT on boot partition that's not the first partition
 Patch1:    uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 
@@ -23,10 +23,16 @@ Patch1:    uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
 # CentOSisms
 Patch2:    uefi-use-Centos-specific-path-name.patch
 Source200: uefi-use-Fedora-specific-path-name.patch
+Source999: uefi-use-Mageia-specific-path-name.patch
+%elif 0%{?mageia}
+Patch99:   uefi-use-Mageia-specific-path-name.patch
+Source200: uefi-use-Fedora-specific-path-name.patch
+Source300: uefi-use-Centos-specific-path-name.patch
 %else
 # Fedoraisms
 Patch3:    uefi-use-Fedora-specific-path-name.patch
 Source300: uefi-use-Centos-specific-path-name.patch
+Source999: uefi-use-Mageia-specific-path-name.patch
 %endif
 
 # Board fixes and enablement
