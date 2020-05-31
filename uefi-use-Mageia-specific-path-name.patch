@@ -1,6 +1,6 @@
-From f7d848825934a6ccb7045d7b075f879059f484f9 Mon Sep 17 00:00:00 2001
+From af0d0a466ef4199f74100cb2e2980af8d2b44ec8 Mon Sep 17 00:00:00 2001
 From: Mark Verlinde <mark@havak.nl>
-Date: Sat, 30 May 2020 21:55:31 +0200
+Date: Sun, 31 May 2020 07:06:54 +0200
 Subject: [PATCH] efi use Mageia specific path name
 
 Signed-off-by: Mark Verlinde <mark@havak.nl>
@@ -9,7 +9,7 @@ Signed-off-by: Mark Verlinde <mark@havak.nl>
  1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/include/config_distro_bootcmd.h b/include/config_distro_bootcmd.h
-index fc0935fa21..a588911c48 100644
+index 0768afc4b5..cccdb8bc6d 100644
 --- a/include/config_distro_bootcmd.h
 +++ b/include/config_distro_bootcmd.h
 @@ -92,9 +92,9 @@
@@ -29,20 +29,20 @@ index fc0935fa21..a588911c48 100644
  		"fi;"                                                     \
  		"load ${devtype} ${devnum}:${distro_bootpart} "           \
 -			"${kernel_addr_r} efi/boot/"BOOTEFI_NAME"; "      \
-+			"${kernel_addr_r} EFI/mageia/"BOOTEFI_NAME"; "      \
++			"${kernel_addr_r} efi/mageia/"BOOTEFI_NAME"; "      \
  		"if fdt addr ${fdt_addr_r}; then "                        \
  			"bootefi ${kernel_addr_r} ${fdt_addr_r};"         \
  		"else "                                                   \
-@@ -153,9 +153,9 @@
- 			"fi;"                                             \
- 		"done;"                                                   \
+@@ -165,9 +165,9 @@
+ 		"run boot_efi_binary\0"                                   \
+ 	"scan_dev_for_efi="                                               \
  		"if test -e ${devtype} ${devnum}:${distro_bootpart} "     \
 -					"efi/boot/"BOOTEFI_NAME"; then "  \
-+					"EFI/mageia/"BOOTEFI_NAME"; then "  \
++					"efi/mageia/"BOOTEFI_NAME"; then "  \
  				"echo Found EFI removable media binary "  \
 -					"efi/boot/"BOOTEFI_NAME"; "       \
-+					"EFI/mageia/"BOOTEFI_NAME"; "       \
- 				"run boot_efi_binary; "                   \
++					"efi/mageia/"BOOTEFI_NAME"; "       \
+ 				"run scan_dev_for_dtb; "                  \
  				"echo EFI LOAD FAILED: continuing...; "   \
  		"fi; "                                                    \
 -- 
