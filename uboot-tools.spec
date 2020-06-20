@@ -14,27 +14,6 @@ Source3:   aarch64-boards
 Source4:   aarch64-chromebooks
 Source5:   10-devicetree.install
 
-# Fedora/CentOS/Mageiaisms patches
-# Needed to find DT on boot partition that's not the first partition
-Patch1:    uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
-
-# Needed due to issues with shim
-%if 0%{?centos}
-# CentOSisms
-Patch2:    uefi-use-Centos-specific-path-name.patch
-Source200: uefi-use-Fedora-specific-path-name.patch
-Source999: uefi-use-Mageia-specific-path-name.patch
-%elif 0%{?mageia}
-Patch99:   uefi-use-Mageia-specific-path-name.patch
-Source200: uefi-use-Fedora-specific-path-name.patch
-Source300: uefi-use-Centos-specific-path-name.patch
-%else
-# Fedoraisms
-Patch3:    uefi-use-Fedora-specific-path-name.patch
-Source300: uefi-use-Centos-specific-path-name.patch
-Source999: uefi-use-Mageia-specific-path-name.patch
-%endif
-
 # Board fixes and enablement
 Patch4:    usb-kbd-fixes.patch
 Patch5:    rpi-Enable-using-the-DT-provided-by-the-Raspberry-Pi.patch
@@ -60,22 +39,10 @@ Patch19:   USB-host-support-for-Raspberry-Pi-4-board.patch
 BuildRequires:  bc
 BuildRequires:  dtc
 BuildRequires:  make
-# Requirements for building on el7
-%if 0%{?rhel} == 7
-BuildRequires:  devtoolset-7-build
-BuildRequires:  devtoolset-7-binutils
-BuildRequires:  devtoolset-7-gcc
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-libfdt
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-devel
-%else
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-libfdt
-%endif
 BuildRequires:  flex bison
 BuildRequires:  openssl-devel
 BuildRequires:  SDL-devel
@@ -126,10 +93,6 @@ cp %SOURCE1 %SOURCE2 %SOURCE3 %SOURCE4 .
 %build
 mkdir builds
 
-%if 0%{?rhel} == 7
-#Enabling DTS for .el7
-%{?enable_devtoolset7:%{enable_devtoolset7}}
-%endif
 
 %ifarch aarch64 %{arm}
 for board in $(cat %{_arch}-boards)
