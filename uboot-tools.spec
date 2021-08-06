@@ -1,24 +1,33 @@
-#global candidate rc0
+#global candidate rc1
 
-Name:     uboot-tools
-Version:  2021.07
-Release:  2%{?candidate:.%{candidate}}%{?dist}
-Summary:  U-Boot utilities
-License:  GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
-URL:      http://www.denx.de/wiki/U-Boot
+Name:      uboot-tools
+Version:   2020.04
+Release:   4%{?candidate:.%{candidate}}%{?dist}
+Summary:   U-Boot utilities
+License:   GPLv2+ BSD LGPL-2.1+ LGPL-2.0+
+URL:       http://www.denx.de/wiki/U-Boot
 
-ExcludeArch: s390x
-Source0:  ftp://ftp.denx.de/pub/u-boot/u-boot-%{version}%{?candidate:-%{candidate}}.tar.bz2
-Source1:  arm-boards
-Source2:  arm-chromebooks
-Source3:  aarch64-boards
-Source4:  aarch64-chromebooks
+Source0:   ftp://ftp.denx.de/pub/u-boot/u-boot-%{version}%{?candidate:-%{candidate}}.tar.bz2
+Source1:   arm-boards
+#Source2:   arm-chromebooks
+Source3:   aarch64-boards
+#Source4:   aarch64-chromebooks
+Source5:   10-devicetree.install
 
 # Fedora/CentOS-isms patches
 # Needed to find DT on boot partition that's not the first partition
-Patch1:   uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
-# RPi - uses RPI firmware device tree for HAT support
-Patch2:   rpi-Enable-using-the-DT-provided-by-the-Raspberry-Pi.patch
+Patch1:    uefi-distro-load-FDT-from-any-partition-on-boot-device.patch
+
+# Needed due to issues with shim
+%if 0%{?centos}
+# CentOSisms
+Patch2:    uefi-use-Centos-specific-path-name.patch
+Source200: uefi-use-Fedora-specific-path-name.patch
+%else
+# Fedoraisms
+Patch3:    uefi-use-Fedora-specific-path-name.patch
+Source300: uefi-use-Centos-specific-path-name.patch
+%endif
 
 # Board fixes and enablement
 # AllWinner improvements
