@@ -1,5 +1,15 @@
 #global candidate rc0
 
+%if 0%{?rhel} == 8
+%global with_chromebooks 0
+%else
+%ifarch %{arm} aarch64
+%global with_chromebooks 1
+%else
+%global with_chromebooks 0
+%endif
+%endif
+
 Name:     uboot-tools
 Version:  2021.07
 Release:  2%{?candidate:.%{candidate}}%{?dist}
@@ -45,13 +55,15 @@ BuildRequires:  python2-libfdt
 BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+%if %{with_chromebooks}
 BuildRequires:  python3-libfdt
+%endif
 %endif
 BuildRequires:  flex bison
 BuildRequires:  openssl-devel
 BuildRequires:  SDL-devel
 BuildRequires:  swig
-%ifarch %{arm} aarch64
+%if %{with_chromebooks}
 BuildRequires:  vboot-utils
 %endif
 %ifarch aarch64
@@ -84,7 +96,11 @@ U-Boot firmware binaries for armv7 boards
 %prep
 %autosetup -p1 -n u-boot-%{version}%{?candidate:-%{candidate}}
 
+%if %{with_chromebooks}
 cp %SOURCE1 %SOURCE2 %SOURCE3 %SOURCE4 .
+%else
+cp %SOURCE1 %SOURCE3 .
+%endif
 
 %build
 mkdir builds
